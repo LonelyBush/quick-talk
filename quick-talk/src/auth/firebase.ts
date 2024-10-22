@@ -1,20 +1,70 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from 'firebase/app';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from 'firebase/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDOf1gzDXyUUudzGSkjwS1kPg260qbGlfA",
-  authDomain: "quick-talk-1732c.firebaseapp.com",
-  projectId: "quick-talk-1732c",
-  storageBucket: "quick-talk-1732c.appspot.com",
-  messagingSenderId: "488318031416",
-  appId: "1:488318031416:web:9945418232226d6e1f78cd",
-  measurementId: "G-MRRSKKS9E5"
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDERID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
+const logInWithEmailAndPassword = async (email: string, password: string) => {
+  return new Promise((resolve, reject) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        const { user } = result;
+        if (user) {
+          resolve(user);
+        } else {
+          reject(new Error('Auth is failed'));
+        }
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+const registerWithEmailAndPassword = async (
+  nickname: string,
+  email: string,
+  password: string,
+) => {
+  return new Promise((resolve, reject) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (result) => {
+        const { user } = result;
+        if (user && auth.currentUser) {
+          await updateProfile(user, {
+            displayName: nickname,
+          });
+          await user.reload();
+          const updatedUser = auth.currentUser;
+          resolve(updatedUser);
+        }
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+const logout = () => {
+  signOut(auth);
+};
+
+export {
+  auth,
+  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
+  logout,
+};
