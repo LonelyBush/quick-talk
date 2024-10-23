@@ -11,9 +11,13 @@ html {
 }
 
 body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
     overflow: hidden;
-    margin: 0 auto;
     font-family: 'Lato';
     font-weight: 400;
-    background-color: $c-main-background;
+    background-color: $c-cream-100;
 }

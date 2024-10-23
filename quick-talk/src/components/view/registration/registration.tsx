@@ -5,6 +5,7 @@ import FormControl from '@/components/ui/form-control/form-control';
 import { registrationSchema } from '@/schema/schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import styles from './registration-style.module.scss';
 import * as yup from 'yup';
 
 function RegistrationPage() {
@@ -19,9 +20,12 @@ function RegistrationPage() {
   });
   const onSubmit: SubmitHandler<RegistrationData> = (data) => console.log(data);
   return (
-    <div>
-      <h2>Registration</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className={styles.registrationMainContainer}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.registrationFormContainer}
+      >
+        <h2>Registration</h2>
         <FormControl
           type="text"
           label="Nickname"

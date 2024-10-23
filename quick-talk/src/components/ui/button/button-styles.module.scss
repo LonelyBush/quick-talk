@@ -1,6 +1,30 @@
+
 .btn {
-    border: 0.2rem solid black;
-    font-size: 1.2rem;
+    display: inline-block;
+    padding: 0.3rem 1.2rem;
+    border: 0.1rem solid #7FA1C3;
     font-family: 'Lato';
-    padding: 1rem;
+    font-weight: 400;
+    color: #Ffffff;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+    background-color: #6482AD;
+    border-radius: 0.23rem;
+    min-height: 2.5rem;
+    width: 10rem;
+    &:hover {
+        color: #Ffffff;
+        background-color: #7FA1C3;
+    }
+    
+    &:active{
+        color: #Ffffff;
+        background-color: #6482AD;
+    }
+    
+    &:disabled{
+        color: #Ffffff;
+        background-color: #7FA1C3;
+    }
 }

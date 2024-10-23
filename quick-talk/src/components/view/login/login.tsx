@@ -22,6 +22,7 @@ function LoginPage() {
         onSubmit={handleSubmit(onSubmit)}
         className={styles.loginFormContainer}
       >
+        <h2>Login</h2>
         <FormControl
           type="text"
           label="Email"

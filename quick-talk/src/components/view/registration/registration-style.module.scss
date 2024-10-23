@@ -1,0 +1,17 @@
+@import '../../../styles/colors.scss';
+
+
+.registrationMainContainer{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.registrationFormContainer{
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $c-white;
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+}
