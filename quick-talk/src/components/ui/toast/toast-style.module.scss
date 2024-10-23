@@ -1,0 +1,11 @@
+@import '../../../styles/colors.scss';
+
+.toastBody {
+  font-family: 'Lato';
+  font-size: 1.2rem;
+  color: $c-black;
+}
+
+.toastWrapper {
+  box-shadow: 0 0.04rem 0.04px 0 #00000040;;
+}

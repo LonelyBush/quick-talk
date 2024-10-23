@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '../index.scss';
+import Toast from '@/components/ui/toast/toast';
 
 export const metadata: Metadata = {
   title: 'Quick Talk',
@@ -11,9 +12,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log(process.env.API_KEY);
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <Toast />
+      </body>
     </html>
   );
 }

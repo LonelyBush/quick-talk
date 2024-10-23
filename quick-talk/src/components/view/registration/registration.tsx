@@ -2,14 +2,21 @@
 
 import Button from '@/components/ui/button/button';
 import FormControl from '@/components/ui/form-control/form-control';
-import { registrationSchema } from '@/schema/schema';
+import { registrationSchema } from '@/utils/validation-schema/schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './registration-style.module.scss';
 import * as yup from 'yup';
+import { auth, registerWithEmailAndPassword } from '@/auth/firebase';
+import { toast } from 'react-toastify';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 function RegistrationPage() {
   type RegistrationData = yup.InferType<typeof registrationSchema>;
+  const [user] = useAuthState(auth);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -18,7 +25,26 @@ function RegistrationPage() {
     mode: 'onChange',
     resolver: yupResolver(registrationSchema),
   });
-  const onSubmit: SubmitHandler<RegistrationData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RegistrationData> = (data) => {
+    toast.promise(
+      registerWithEmailAndPassword(data.nickname, data.email, data.password),
+      {
+        pending: 'Loading...',
+        success: 'Access granted !',
+        error: {
+          render({ data }: { data: Error }) {
+            return `${data.message}`;
+          },
+        },
+      },
+    );
+  };
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
   return (
     <div className={styles.registrationMainContainer}>
       <form
