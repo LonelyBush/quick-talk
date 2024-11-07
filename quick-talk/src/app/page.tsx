@@ -1,15 +1,18 @@
 'use client';
 
-import { auth, logout } from '@/auth/firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { logout } from '@/firebase/auth';
 import Button from '@/components/ui/button/button';
 import { useRouter } from 'next/navigation';
+import useUserSection from '@/hooks/useUserSession';
 
 export default function Home() {
   const router = useRouter();
-  const [user] = useAuthState(auth);
-
-  return (
+  const { user, loading } = useUserSection();
+  return loading ? (
+    <div>
+      <p>Loading...</p>
+    </div>
+  ) : (
     <div>
       <main>Hello {user?.displayName}</main>
       {!user ? (
@@ -22,11 +25,13 @@ export default function Home() {
           </Button>
         </div>
       ) : (
-        <div>
-          <Button btnType="button" onClick={logout}>
-            Log out
-          </Button>
-        </div>
+        <>
+          <div>
+            <Button btnType="button" onClick={logout}>
+              Log out
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );

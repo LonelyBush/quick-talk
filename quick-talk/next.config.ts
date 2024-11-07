@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
     MESSAGING_SENDERID: process.env.MESSAGING_SENDERID,
     APP_ID: process.env.APP_ID,
     MEASUREMENT_ID: process.env.MEASUREMENT_ID,
+    PRIVATE_KEY: process.env.PRIVATE_KEY,
+    CLIENT_EMAIL: process.env.CLIENT_EMAIL,
+    DATABASE_URI: process.env.DATABASE_URI,
   },
 };
 

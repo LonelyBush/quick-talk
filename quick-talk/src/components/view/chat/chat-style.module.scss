@@ -1,0 +1,14 @@
+@use '../../../styles/colors.scss' as *;
+
+.chatContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: $c-blue-100;
+    color: $c-white;
+    border-radius: 0.5rem;
+    min-height: 65vh;
+}
+
+.usersSection{
+    max-width: 25rem;
+}

@@ -8,10 +8,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './login-style.module.scss';
 import { toast } from 'react-toastify';
-import { auth, logInWithEmailAndPassword } from '@/auth/firebase';
+import { logInWithEmailAndPassword } from '@/firebase/auth';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
+import { auth } from '@/firebase/firebase-config/client-app';
 
 function LoginPage() {
   type LoginData = yup.InferType<typeof loginSchema>;

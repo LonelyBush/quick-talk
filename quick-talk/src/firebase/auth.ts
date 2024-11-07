@@ -1,25 +1,11 @@
-import { initializeApp } from 'firebase/app';
+import { auth, db } from './firebase-config/client-app';
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from 'firebase/auth';
-
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDERID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID,
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { doc, setDoc } from 'firebase/firestore';
 
 const logInWithEmailAndPassword = async (email: string, password: string) => {
   return new Promise((resolve, reject) => {
@@ -51,6 +37,11 @@ const registerWithEmailAndPassword = async (
           });
           await user.reload();
           const updatedUser = auth.currentUser;
+          await setDoc(doc(db, 'users', auth.currentUser.uid), {
+            nickname: nickname,
+            email: email,
+            uid: auth.currentUser.uid,
+          });
           resolve(updatedUser);
         }
       })
@@ -62,9 +53,4 @@ const logout = () => {
   signOut(auth);
 };
 
-export {
-  auth,
-  logInWithEmailAndPassword,
-  registerWithEmailAndPassword,
-  logout,
-};
+export { logInWithEmailAndPassword, registerWithEmailAndPassword, logout };

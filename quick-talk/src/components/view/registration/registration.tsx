@@ -7,11 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './registration-style.module.scss';
 import * as yup from 'yup';
-import { auth, registerWithEmailAndPassword } from '@/auth/firebase';
+import { registerWithEmailAndPassword } from '@/firebase/auth';
 import { toast } from 'react-toastify';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { auth } from '@/firebase/firebase-config/client-app';
 
 function RegistrationPage() {
   type RegistrationData = yup.InferType<typeof registrationSchema>;
@@ -30,7 +31,12 @@ function RegistrationPage() {
       registerWithEmailAndPassword(data.nickname, data.email, data.password),
       {
         pending: 'Loading...',
-        success: 'Access granted !',
+        success: {
+          render() {
+            router.push('/');
+            return 'Access granted !';
+          },
+        },
         error: {
           render({ data }: { data: Error }) {
             return `${data.message}`;
@@ -41,7 +47,7 @@ function RegistrationPage() {
   };
 
   useEffect(() => {
-    if (user) {
+    if (user?.displayName) {
       router.push('/');
     }
   }, [user, router]);
