@@ -1,19 +1,19 @@
 import styles from './user-list-style.module.scss';
 import { getUsers } from '@/firebase/db';
 import { getAuthenticatedAppForUser } from '@/firebase/serverApp';
-import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import User from '../user/user';
+import Input from '@/components/ui/input/input';
 
 async function UserList() {
-  const { firebaseServerApp } = await getAuthenticatedAppForUser();
+  const { firebaseServerApp, currentUser } = await getAuthenticatedAppForUser();
   const users = (await getUsers(
     getFirestore(firebaseServerApp),
-    getAuth(firebaseServerApp).currentUser,
+    currentUser,
   )) as { uid: string; nickname: string; email: string }[];
   return (
     <div className={styles.userListWrapper}>
-      <input></input>
+      <Input type="text" placeholder="Search..." name="user-search" />
       {users.map((user) => {
         return (
           <User key={user.uid} uid={user.uid} name={user.nickname}>

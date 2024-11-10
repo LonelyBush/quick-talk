@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
     CLIENT_EMAIL: process.env.CLIENT_EMAIL,
     DATABASE_URI: process.env.DATABASE_URI,
   },
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api'],
+  },
 };
 
 export default nextConfig;

@@ -1,16 +1,17 @@
 @use '../../../styles/colors.scss' as *;
 
-.logoutWrapper{
+
+.headerContainer{
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
     background-color: $c-blue-300;
     color: $c-white;
     padding: 1rem 1.5rem;
-    border-top-left-radius: 0.5rem;
 }
 
-.logoutContainer{
+.authContainer{
     display: flex;
     align-items: center;
     gap: 1.2rem;

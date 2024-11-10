@@ -2,15 +2,11 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, getIdToken } from 'firebase/auth';
 import { getInstallations, getToken } from 'firebase/installations';
 
-// this is set during install
 let firebaseConfig;
-let firebaseApp;
-
 self.addEventListener('install', () => {
   const serializedFirebaseConfig = new URL(location).searchParams.get(
     'firebaseConfig',
   );
-
   if (!serializedFirebaseConfig) {
     throw new Error(
       'Firebase Config object not found in service worker query string.',
@@ -19,7 +15,6 @@ self.addEventListener('install', () => {
 
   firebaseConfig = JSON.parse(serializedFirebaseConfig);
   console.log('Service worker installed with Firebase config', firebaseConfig);
-  firebaseApp = initializeApp(firebaseConfig);
 });
 
 self.addEventListener('fetch', (event) => {
@@ -29,6 +24,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 async function fetchWithFirebaseHeaders(request) {
+  const firebaseApp = initializeApp(firebaseConfig);
   const auth = getAuth(firebaseApp);
   const installations = getInstallations(firebaseApp);
   const headers = new Headers(request.headers);
@@ -44,6 +40,6 @@ async function fetchWithFirebaseHeaders(request) {
 
 async function getAuthIdToken(auth) {
   await auth.authStateReady();
-  if (!auth.currentUser) return;
+  if (!auth.currentUser) return null;
   return await getIdToken(auth.currentUser);
 }

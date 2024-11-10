@@ -9,14 +9,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './login-style.module.scss';
 import { toast } from 'react-toastify';
 import { logInWithEmailAndPassword } from '@/firebase/auth';
-import { useEffect } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { auth } from '@/firebase/firebase-config/client-app';
+import { AuthContext } from '@/context/authContext';
 
 function LoginPage() {
   type LoginData = yup.InferType<typeof loginSchema>;
-  const [user] = useAuthState(auth);
+  const { user } = useContext(AuthContext);
   const router = useRouter();
   const {
     register,
@@ -37,7 +36,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (user) {
-      router.push('/');
+      router.replace('/');
     }
   }, [user, router]);
 

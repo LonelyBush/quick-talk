@@ -12,12 +12,18 @@ html {
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
     min-height: 100vh;
     overflow: hidden;
     font-family: 'Lato';
     font-weight: 400;
     background-color: $c-cream-100;
+}
+
+main {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
 }

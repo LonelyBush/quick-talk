@@ -9,14 +9,13 @@ import styles from './registration-style.module.scss';
 import * as yup from 'yup';
 import { registerWithEmailAndPassword } from '@/firebase/auth';
 import { toast } from 'react-toastify';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { auth } from '@/firebase/firebase-config/client-app';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '@/context/authContext';
 
 function RegistrationPage() {
   type RegistrationData = yup.InferType<typeof registrationSchema>;
-  const [user] = useAuthState(auth);
+  const { user } = useContext(AuthContext);
   const router = useRouter();
   const {
     register,
@@ -33,7 +32,7 @@ function RegistrationPage() {
         pending: 'Loading...',
         success: {
           render() {
-            router.push('/');
+            router.replace('/');
             return 'Access granted !';
           },
         },
@@ -48,7 +47,7 @@ function RegistrationPage() {
 
   useEffect(() => {
     if (user?.displayName) {
-      router.push('/');
+      router.replace('/');
     }
   }, [user, router]);
   return (

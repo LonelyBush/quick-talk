@@ -1,0 +1,10 @@
+@use '../../../styles/colors.scss' as *;
+
+.dialogHeaderSection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $c-blue-100;
+    color: $c-white;
+    padding: 1rem 1.5rem;
+}
