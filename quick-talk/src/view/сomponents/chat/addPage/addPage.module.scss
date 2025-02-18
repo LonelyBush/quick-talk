@@ -1,0 +1,21 @@
+
+.addPage {
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    &__search_wrapper{
+      display: flex;  
+    }
+
+    &__users_list{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+
+}

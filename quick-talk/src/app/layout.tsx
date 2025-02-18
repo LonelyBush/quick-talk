@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import '../index.scss';
-import Toast from '@/components/ui/toast/toast';
-import Header from '@/components/сomponent/header/header';
-import { getAuthenticatedAppForUser } from '@/firebase/serverApp';
+import Toast from '@/view/ui/toast/toast';
+import Header from '@/view/сomponents/header/header';
 import { AuthProvider } from '@/context/authContext';
+import { lato } from '@/styles/fonts';
 
 export const metadata: Metadata = {
   title: 'Quick Talk',
@@ -15,11 +15,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { currentUser } = await getAuthenticatedAppForUser();
-  console.log(currentUser?.toJSON());
   return (
     <html lang="en">
-      <body>
+      <body className={lato.className}>
         <AuthProvider>
           <Header />
           <main>{children}</main>

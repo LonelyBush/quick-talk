@@ -42,6 +42,9 @@ const registerWithEmailAndPassword = async (
             email: email,
             uid: auth.currentUser.uid,
           });
+          await setDoc(doc(db, 'usersContacts', auth.currentUser.uid), {
+            contacts: [],
+          });
           resolve(updatedUser);
         }
       })

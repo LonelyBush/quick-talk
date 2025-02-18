@@ -1,4 +1,4 @@
-import RegistrationPage from '@/components/view/registration/registration';
+import RegistrationPage from '@/view/сomponents/registration/registration';
 
 function Page() {
   return <RegistrationPage />;

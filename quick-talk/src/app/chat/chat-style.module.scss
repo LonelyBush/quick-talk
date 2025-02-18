@@ -1,0 +1,23 @@
+@use '../../styles/colors.scss' as *;
+
+.chatContainer{
+    display: flex;
+    flex-direction: row;
+    border-radius: 0.5rem;
+    min-height: 65vh;
+    flex-grow: 1;
+}
+
+.usersSection{
+    padding: 1.2rem 1rem;
+    background-color: $c-blue-100;
+    color: $c-white;
+    flex-grow: 0;
+}
+
+.chatSection{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+}

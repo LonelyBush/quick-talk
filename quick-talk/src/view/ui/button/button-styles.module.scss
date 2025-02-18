@@ -1,0 +1,31 @@
+@use '../../../styles/colors.scss' as *;
+
+.btn {
+    display: inline-block;
+    padding: 0.3rem 1.2rem;
+    border: 0.1rem solid $c-blue-300;
+    font-family: 'Lato';
+    font-weight: 400;
+    color: $c-white;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+    background-color: $c-blue-100;
+    border-radius: 0.23rem;
+    min-height: 2.5rem;
+    &:hover {
+        color: $c-blue-300;
+        background-color: $c-white
+    }
+    
+    &:active{
+        color: $c-blue-300;
+        background-color: $c-white
+    }
+    
+    &:disabled{
+        opacity: 0.5;
+        color: $c-white;
+        background-color: $c-blue-300;
+    }
+}

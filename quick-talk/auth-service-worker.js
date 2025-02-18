@@ -24,18 +24,23 @@ self.addEventListener('fetch', (event) => {
 });
 
 async function fetchWithFirebaseHeaders(request) {
-  const firebaseApp = initializeApp(firebaseConfig);
-  const auth = getAuth(firebaseApp);
-  const installations = getInstallations(firebaseApp);
-  const headers = new Headers(request.headers);
-  const [authIdToken, installationToken] = await Promise.all([
-    getAuthIdToken(auth),
-    getToken(installations),
-  ]);
-  headers.append('Firebase-Instance-ID-Token', installationToken);
-  if (authIdToken) headers.append('Authorization', `Bearer ${authIdToken}`);
-  const newRequest = new Request(request, { headers });
-  return await fetch(newRequest);
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    const auth = getAuth(firebaseApp);
+    const installations = getInstallations(firebaseApp);
+    const headers = new Headers(request.headers);
+    const [authIdToken, installationToken] = await Promise.all([
+      getAuthIdToken(auth),
+      getToken(installations),
+    ]);
+    headers.append('Firebase-Instance-ID-Token', installationToken);
+    if (authIdToken) headers.append('Authorization', `Bearer ${authIdToken}`);
+    const newRequest = new Request(request, { headers });
+    return await fetch(newRequest);
+  } catch (error) {
+    console.error('Error fetching with Firebase headers:', error);
+    throw error;
+  }
 }
 
 async function getAuthIdToken(auth) {

@@ -1,0 +1,17 @@
+.welcomeContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    & h2 {
+        font-size: 2.5rem;
+        font-weight: 500;
+    }
+
+    & p {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}

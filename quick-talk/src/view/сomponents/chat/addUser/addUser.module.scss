@@ -1,0 +1,26 @@
+@use '../../../../styles/colors.scss' as *;
+
+.addUserContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    background: $c-white;
+    padding: 0.5rem;
+    min-width: 15rem;
+}
+
+.profilePicMock{
+    display: flex;
+    align-self: center;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    background: $c-blue-300;
+}
+.cardDescrip{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.9rem;
+}

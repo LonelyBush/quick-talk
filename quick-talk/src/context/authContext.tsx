@@ -20,9 +20,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         JSON.stringify(firebaseConfig),
       );
       const serviceWorkerUrl = `/auth-service-worker.js?firebaseConfig=${serializedFirebaseConfig}`;
-
       navigator.serviceWorker
-        .register(serviceWorkerUrl)
+        .register(serviceWorkerUrl, { type: 'module' })
         .then((registration) => console.log('scope is: ', registration.scope));
     }
   }, []);
